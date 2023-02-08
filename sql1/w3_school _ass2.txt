@@ -1,0 +1,63 @@
+mysql> create database coditas;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop database coditas;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table ww(id int, name varchar(23));
+Query OK, 0 rows affected (0.05 sec)
+
+
+mysql> drop table ww;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table ww add column roll_no int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE ww
+    -> modify column roll_no int not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww add unique(id);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww add primary key(id);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww add foreign key(deptid) references department(deptid);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww add check (roll_no>10);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww alter name set default "yash";
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> create index ind on ww(roll_no);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table ww modify column id int auto_increment;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+mysql> create view v3 as select * from ww;
+Query OK, 0 rows affected (0.01 sec)
+
+

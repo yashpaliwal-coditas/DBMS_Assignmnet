@@ -1,0 +1,140 @@
+Q 1,2:
+
+mysql> create table teachers(tid int primary key, name varchar(20),age int , course varchar(20),city varchar(20),Subject_expert varchar(20),year_of_expirence int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table students(sid int primary key, name varchar(20),age int , course varchar(20),city varchar(20),year int, percentage int,tid int, foreign key(tid) references teachers(tid));
+Query OK, 0 rows affected (0.05 sec)
+
+
+mysql> insert into teachers values(1,"aarti",30,"java","pune","java 1.8",9);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(2,"anirudh",28,"Full stack","ahemadabad","meen",5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(3,"xyz",35,"tech","mumbai","database",2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(4,"sxyz",325,"tech","pune","datastructure",3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(4,"mxyz",25,"chemistry","agra","organic",4);
+ERROR 1062 (23000): Duplicate entry '4' for key 'teachers.PRIMARY'
+mysql> insert into teachers values(5,"mxyz",25,"chemistry","agra","organic",4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(6,"sojio",40,"physics","agra","mordern",10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(7,"abcd",50,"Maths","mumbai","basics",18);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(8,"raj",42,"Maths","mumbai","trignometri",7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(1,"yash",23,"Java","agra",4,91,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(2,"aniket",21,"meen","pune",3,65,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(3,"kanmay",22,"meen","pune",2,55,4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(4,"tanmay",19,"data science","mumbai",4,80,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(5,"sujan",21,"physics","mumbai",2,75,6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(6,"harini",20,"chemistry","agra",4,70,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(7,"krati",21,"tech","indore",4,82,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(8,"shreya",21,"tech","indore",4,62,3);
+Query OK, 1 row affected (0.01 sec)
+
+Q3:
+mysql> alter table students rename column course to subject;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Q4:
+mysql> create table bkup_students as select * from students;
+Query OK, 8 rows affected (0.06 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> create table bkup_teacher as select * from teachers;
+Query OK, 8 rows affected (0.06 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+Q5:
+mysql> select * from students where city in("pune","mumbai");
++-----+--------+------+--------------+--------+------+------------+------+
+| sid | name   | age  | subject      | city   | year | percentage | tid  |
++-----+--------+------+--------------+--------+------+------------+------+
+|   2 | aniket |   21 | meen         | pune   |    3 |         65 |    2 |
+|   3 | kanmay |   22 | meen         | pune   |    2 |         55 |    4 |
+|   4 | tanmay |   19 | data science | mumbai |    4 |         80 |    3 |
+|   5 | sujan  |   21 | physics      | mumbai |    2 |         75 |    6 |
++-----+--------+------+--------------+--------+------+------------+------+
+4 rows in set (0.00 sec)
+
+Q6:
+mysql> select * from teachers where city="ahemadabad" and name like "A%";
++-----+---------+------+------------+------------+----------------+-------------------+
+| tid | name    | age  | course     | city       | Subject_expert | year_of_expirence |
++-----+---------+------+------------+------------+----------------+-------------------+
+|   2 | anirudh |   28 | Full stack | ahemadabad | meen           |                 5 |
++-----+---------+------+------------+------------+----------------+-------------------+
+1 row in set (0.00 sec)
+
+
+Q7:
+mysql> select * from teachers where year_of_expirence>3;
++-----+---------+------+------------+------------+----------------+-------------------+
+| tid | name    | age  | course     | city       | Subject_expert | year_of_expirence |
++-----+---------+------+------------+------------+----------------+-------------------+
+|   1 | aarti   |   30 | java       | pune       | java 1.8       |                 9 |
+|   2 | anirudh |   28 | Full stack | ahemadabad | meen           |                 5 |
+|   5 | mxyz    |   25 | chemistry  | agra       | organic        |                 4 |
+|   6 | sojio   |   40 | physics    | agra       | mordern        |                10 |
+|   7 | abcd    |   50 | Maths      | mumbai     | basics         |                18 |
+|   8 | raj     |   42 | Maths      | mumbai     | trignometri    |                 7 |
++-----+---------+------+------------+------------+----------------+-------------------+
+6 rows in set (0.00 sec)
+
+Q8:
+
+mysql> select city, count(name) from students group by city;
++--------+-------------+
+| city   | count(name) |
++--------+-------------+
+| agra   |           2 |
+| pune   |           2 |
+| mumbai |           2 |
+| indore |           2 |
++--------+-------------+
+4 rows in set (0.00 sec)
+
+
+Q9:
+
+mysql> select s.sid, s.name, s.age,s.subject,s.city,s.year,s.percentage from students s join teachers t on t.tid=s.tid where percentage>70 and t.year_of_expirence>3;
++-----+-------+------+---------+--------+------+------------+
+| sid | name  | age  | subject | city   | year | percentage |
++-----+-------+------+---------+--------+------+------------+
+|   1 | yash  |   23 | Java    | agra   |    4 |         91 |
+|   5 | sujan |   21 | physics | mumbai |    2 |         75 |
++-----+-------+------+---------+--------+------+------------+
+2 rows in set (0.00 sec)
+
+Q10
+
+mysql> create table bkp_stu1 like student;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table bkp_teac1 like teacher;
+Query OK, 0 rows affected (0.04 sec)

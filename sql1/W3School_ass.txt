@@ -1,0 +1,634 @@
+mysql> select * from employee;
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|   1 | Nikhil   |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin    |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  12 | paliwal  |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  13 | ritik    |   NULL |  30000 |      NULL | NULL              | 2     | m      |
+|  14 | anvesh   |     50 |  12000 |      NULL | sweeper           | NULL  | m      |
+|  15 | happy    |     20 |  20000 |      5000 | Assistant         | 2     | m      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+14 rows in set (0.01 sec)
+
+mysql> select distinct deptid from employee;
++--------+
+| deptid |
++--------+
+|   NULL |
+|     10 |
+|     20 |
+|     30 |
+|     50 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where salary>5000;
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation       | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+|   1 | Nikhil  |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin   |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   4 | Vaibhav |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant  |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran   |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali  |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash    |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  12 | paliwal |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  13 | ritik   |   NULL |  30000 |      NULL | NULL              | 2     | m      |
+|  14 | anvesh  |     50 |  12000 |      NULL | sweeper           | NULL  | m      |
+|  15 | happy   |     20 |  20000 |      5000 | Assistant         | 2     | m      |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select * from employee where salary =120000 and deptid=10;
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+| eid | ename  | deptid | Salary | comission | designation | ngrid | gender |
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+|   1 | Nikhil |     10 | 120000 |     30000 | Manager     | NULL  | m      |
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary =120000 or deptid=10;
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+|   1 | Nikhil  |     10 | 120000 |     30000 | Manager     | NULL  | m      |
+|   2 | nitin   |     10 |  80000 |     15000 | Manager     | NULL  | m      |
+|  12 | paliwal |     10 |  35000 |      NULL | Manager     | 4     | m      |
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where not deptid=10;
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  14 | anvesh   |     50 |  12000 |      NULL | sweeper           | NULL  | m      |
+|  15 | happy    |     20 |  20000 |      5000 | Assistant         | 2     | m      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee order by deptid desc;
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|  14 | anvesh   |     50 |  12000 |      NULL | sweeper           | NULL  | m      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  15 | happy    |     20 |  20000 |      5000 | Assistant         | 2     | m      |
+|   1 | Nikhil   |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin    |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|  12 | paliwal  |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  13 | ritik    |   NULL |  30000 |      NULL | NULL              | 2     | m      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select * from employee order by deptid desc,salary;
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|  14 | anvesh   |     50 |  12000 |      NULL | sweeper           | NULL  | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|  15 | happy    |     20 |  20000 |      5000 | Assistant         | 2     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  12 | paliwal  |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|   2 | nitin    |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   1 | Nikhil   |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|  13 | ritik    |   NULL |  30000 |      NULL | NULL              | 2     | m      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+14 rows in set (0.00 sec)
+
+
+mysql> insert into employee values(16,"sujan",20,50000,3500,"Programmer",2,"f");
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select * from employee where comission is null;
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+|  11 | yash    |     20 |  30000 |      NULL | Programmer  | 2     | m      |
+|  12 | paliwal |     10 |  35000 |      NULL | Manager     | 4     | m      |
+|  13 | ritik   |   NULL |  30000 |      NULL | NULL        | 2     | m      |
+|  14 | anvesh  |     50 |  12000 |      NULL | sweeper     | NULL  | m      |
++-----+---------+--------+--------+-----------+-------------+-------+--------+
+4 rows in set (0.00 sec)
+
+
+mysql> update employee set ngrid=3 where eid=14;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from employee where eid=15;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee order by salary desc limit 1;
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+| eid | ename  | deptid | Salary | comission | designation | ngrid | gender |
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+|   1 | Nikhil |     10 | 120000 |     30000 | Manager     | NULL  | m      |
++-----+--------+--------+--------+-----------+-------------+-------+--------+
+1 row in set (0.00 sec)
+
+
+mysql> select max(salary), min(salary) from employee;
++-------------+-------------+
+| max(salary) | min(salary) |
++-------------+-------------+
+|      120000 |        4000 |
++-------------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select count(*), avg(salary), sum(salary) from employee;
++----------+-------------+-------------+
+| count(*) | avg(salary) | sum(salary) |
++----------+-------------+-------------+
+|       14 |  35071.4286 |      491000 |
++----------+-------------+-------------+
+1 row in set (0.01 sec)
+
+
+mysql> select ename , deptid from employee where ename like 's%';
++----------+--------+
+| ename    | deptid |
++----------+--------+
+| Salman   |     30 |
+| Shahrukh |     30 |
+| sonali   |     20 |
+| surabhi  |     20 |
+| sujan    |     20 |
++----------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select ename , deptid from employee where ename like '_a%';
++---------+--------+
+| ename   | deptid |
++---------+--------+
+| Vaibhav |     20 |
+| Salman  |     30 |
+| Jayant  |     20 |
+| yash    |     20 |
+| paliwal |     10 |
++---------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from employee where deptid in(10,20);
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation       | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+|   1 | Nikhil  |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin   |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   4 | Vaibhav |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant  |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran   |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali  |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash    |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  12 | paliwal |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  16 | sujan   |     20 |  50000 |      3500 | Programmer        | 2     | f      |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+
+mysql> select * from employee where deptid between 10 and 20;
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation       | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+|   1 | Nikhil  |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin   |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   4 | Vaibhav |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant  |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran   |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali  |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash    |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  12 | paliwal |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  16 | sujan   |     20 |  50000 |      3500 | Programmer        | 2     | f      |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+
+
+mysql> select ename as employee_name , salary from employee;
++---------------+--------+
+| employee_name | salary |
++---------------+--------+
+| Nikhil        | 120000 |
+| nitin         |  80000 |
+| Vaibhav       |  15000 |
+| Salman        |   5000 |
+| Jayant        |  25000 |
+| Shahrukh      |   4000 |
+| kiran         |  10000 |
+| sonali        |  40000 |
+| surabhi       |  35000 |
+| yash          |  30000 |
+| paliwal       |  35000 |
+| ritik         |  30000 |
+| anvesh        |  12000 |
+| sujan         |  50000 |
++---------------+--------+
+14 rows in set (0.00 sec)
+
+
+mysql> select s.s_name, t.t_name from student s inner join teacher t on s.sid=t.sid;
++--------+---------+
+| s_name | t_name  |
++--------+---------+
+| yash   | aarti   |
+| yash   | anirudh |
+| yash   | xyz     |
++--------+---------+
+3 rows in set (0.00 sec)
+
+
+mysql> select s.s_name, t.t_name from student s left join teacher t on s.sid=t.sid;
++---------+---------+
+| s_name  | t_name  |
++---------+---------+
+| yash    | xyz     |
+| yash    | anirudh |
+| yash    | aarti   |
+| paliwal | NULL    |
+| aniket  | NULL    |
++---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select e.ename, d.dname from employee e right join department d on d.deptid=e.deptid;
++----------+--------------+
+| ename    | dname        |
++----------+--------------+
+| Nikhil   | management   |
+| nitin    | management   |
+| paliwal  | management   |
+| Vaibhav  | technical    |
+| Jayant   | technical    |
+| kiran    | technical    |
+| sonali   | technical    |
+| surabhi  | technical    |
+| yash     | technical    |
+| sujan    | technical    |
+| Salman   | support      |
+| Shahrukh | support      |
+| NULL     | mechanical   |
+| anvesh   | housekeeping |
++----------+--------------+
+14 rows in set (0.00 sec)
+
+
+mysql> select ename from employee union select dname from department;
++--------------+
+| ename        |
++--------------+
+| Nikhil       |
+| nitin        |
+| Vaibhav      |
+| Salman       |
+| Jayant       |
+| Shahrukh     |
+| kiran        |
+| sonali       |
+| surabhi      |
+| yash         |
+| paliwal      |
+| ritik        |
+| anvesh       |
+| sujan        |
+| management   |
+| technical    |
+| support      |
+| mechanical   |
+| housekeeping |
++--------------+
+19 rows in set (0.00 sec)
+
+
+mysql> select avg(salary) from employee group by deptid;
++-------------+
+| avg(salary) |
++-------------+
+|  30000.0000 |
+|  78333.3333 |
+|  29285.7143 |
+|   4500.0000 |
+|  12000.0000 |
++-------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select avg(salary) from employee group by deptid having count(*)>3;
++-------------+
+| avg(salary) |
++-------------+
+|  29285.7143 |
++-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select deptid from employee where exists (select * from department where deptid=10);
++--------+
+| deptid |
++--------+
+|   NULL |
+|     10 |
+|     10 |
+|     10 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     20 |
+|     30 |
+|     30 |
+|     50 |
++--------+
+14 rows in set (0.00 sec)
+
+
+mysql> select * from employee where deptid =any(select deptid from department where dname="technical");
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename   | deptid | Salary | comission | designation       | ngrid | gender |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+|   4 | Vaibhav |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant  |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran   |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali  |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash    |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  16 | sujan   |     20 |  50000 |      3500 | Programmer        | 2     | f      |
++-----+---------+--------+--------+-----------+-------------------+-------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee where deptid =all(select deptid from department where dname="technical" or dname="support");
+Empty set (0.00 sec)
+
+mysql> select * from employee where deptid =any(select deptid from department where dname="technical" or dname="support");
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  16 | sujan    |     20 |  50000 |      3500 | Programmer        | 2     | f      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+9 rows in set (0.00 sec)
+
+
+mysql> select ename, salary, case
+    -> when salary>50000 then "good salary"
+    -> when salary>30000 then "average salary"
+    -> else "Low salary" end as remark from employee;
++----------+--------+----------------+
+| ename    | salary | remark         |
++----------+--------+----------------+
+| Nikhil   | 120000 | good salary    |
+| nitin    |  80000 | good salary    |
+| Vaibhav  |  15000 | Low salary     |
+| Salman   |   5000 | Low salary     |
+| Jayant   |  25000 | Low salary     |
+| Shahrukh |   4000 | Low salary     |
+| kiran    |  10000 | Low salary     |
+| sonali   |  40000 | average salary |
+| surabhi  |  35000 | average salary |
+| yash     |  30000 | Low salary     |
+| paliwal  |  35000 | average salary |
+| ritik    |  30000 | Low salary     |
+| anvesh   |  12000 | Low salary     |
+| sujan    |  50000 | average salary |
++----------+--------+----------------+
+14 rows in set (0.00 sec)
+
+
+
+mysql> select ename , salary , comission, salary+ifnull(comission,0) as final from employee;
++----------+--------+-----------+--------+
+| ename    | salary | comission | final  |
++----------+--------+-----------+--------+
+| Nikhil   | 120000 |     30000 | 150000 |
+| nitin    |  80000 |     15000 |  95000 |
+| Vaibhav  |  15000 |      3000 |  18000 |
+| Salman   |   5000 |      1000 |   6000 |
+| Jayant   |  25000 |      9000 |  34000 |
+| Shahrukh |   4000 |       500 |   4500 |
+| kiran    |  10000 |      1500 |  11500 |
+| sonali   |  40000 |      3500 |  43500 |
+| surabhi  |  35000 |      3000 |  38000 |
+| yash     |  30000 |      NULL |  30000 |
+| paliwal  |  35000 |      NULL |  35000 |
+| ritik    |  30000 |      NULL |  30000 |
+| anvesh   |  12000 |      NULL |  12000 |
+| sujan    |  50000 |      3500 |  53500 |
++----------+--------+-----------+--------+
+14 rows in set (0.00 sec)
+
+
+mysql> select * from employee -- where deptid=10;
+    -> ;
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+| eid | ename    | deptid | Salary | comission | designation       | ngrid | gender |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+|   1 | Nikhil   |     10 | 120000 |     30000 | Manager           | NULL  | m      |
+|   2 | nitin    |     10 |  80000 |     15000 | Manager           | NULL  | m      |
+|   4 | Vaibhav  |     20 |  15000 |      3000 | FrontDeskOperator | 1     | m      |
+|   5 | Salman   |     30 |   5000 |      1000 | Assistant         | 1     | m      |
+|   6 | Jayant   |     20 |  25000 |      9000 | Programmer        | 1     | m      |
+|   7 | Shahrukh |     30 |   4000 |       500 | Assistant         | 2     | m      |
+|   8 | kiran    |     20 |  10000 |      1500 | Analyst           | 3     | m      |
+|   9 | sonali   |     20 |  40000 |      3500 | Developer         | 2     | f      |
+|  10 | surabhi  |     20 |  35000 |      3000 | Developer         | 2     | f      |
+|  11 | yash     |     20 |  30000 |      NULL | Programmer        | 2     | m      |
+|  12 | paliwal  |     10 |  35000 |      NULL | Manager           | 4     | m      |
+|  13 | ritik    |   NULL |  30000 |      NULL | NULL              | 2     | m      |
+|  14 | anvesh   |     50 |  12000 |      NULL | sweeper           | 3     | m      |
+|  16 | sujan    |     20 |  50000 |      3500 | Programmer        | 2     | f      |
++-----+----------+--------+--------+-----------+-------------------+-------+--------+
+14 rows in set (0.00 sec)
+
+
+
+mysql> select ename , salary , comission, salary+ifnull(comission,0) as final from employee;
++----------+--------+-----------+--------+
+| ename    | salary | comission | final  |
++----------+--------+-----------+--------+
+| Nikhil   | 120000 |     30000 | 150000 |
+| nitin    |  80000 |     15000 |  95000 |
+| Vaibhav  |  15000 |      3000 |  18000 |
+| Salman   |   5000 |      1000 |   6000 |
+| Jayant   |  25000 |      9000 |  34000 |
+| Shahrukh |   4000 |       500 |   4500 |
+| kiran    |  10000 |      1500 |  11500 |
+| sonali   |  40000 |      3500 |  43500 |
+| surabhi  |  35000 |      3000 |  38000 |
+| yash     |  30000 |      NULL |  30000 |
+| paliwal  |  35000 |      NULL |  35000 |
+| ritik    |  30000 |      NULL |  30000 |
+| anvesh   |  12000 |      NULL |  12000 |
+| sujan    |  50000 |      3500 |  53500 |
++----------+--------+-----------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select ename , salary , comission, salary*ifnull(comission,0) as final from employee;
++----------+--------+-----------+------------+
+| ename    | salary | comission | final      |
++----------+--------+-----------+------------+
+| Nikhil   | 120000 |     30000 | 3600000000 |
+| nitin    |  80000 |     15000 | 1200000000 |
+| Vaibhav  |  15000 |      3000 |   45000000 |
+| Salman   |   5000 |      1000 |    5000000 |
+| Jayant   |  25000 |      9000 |  225000000 |
+| Shahrukh |   4000 |       500 |    2000000 |
+| kiran    |  10000 |      1500 |   15000000 |
+| sonali   |  40000 |      3500 |  140000000 |
+| surabhi  |  35000 |      3000 |  105000000 |
+| yash     |  30000 |      NULL |          0 |
+| paliwal  |  35000 |      NULL |          0 |
+| ritik    |  30000 |      NULL |          0 |
+| anvesh   |  12000 |      NULL |          0 |
+| sujan    |  50000 |      3500 |  175000000 |
++----------+--------+-----------+------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename , salary , comission, salary-ifnull(comission,0) as final from employee;
++----------+--------+-----------+-------+
+| ename    | salary | comission | final |
++----------+--------+-----------+-------+
+| Nikhil   | 120000 |     30000 | 90000 |
+| nitin    |  80000 |     15000 | 65000 |
+| Vaibhav  |  15000 |      3000 | 12000 |
+| Salman   |   5000 |      1000 |  4000 |
+| Jayant   |  25000 |      9000 | 16000 |
+| Shahrukh |   4000 |       500 |  3500 |
+| kiran    |  10000 |      1500 |  8500 |
+| sonali   |  40000 |      3500 | 36500 |
+| surabhi  |  35000 |      3000 | 32000 |
+| yash     |  30000 |      NULL | 30000 |
+| paliwal  |  35000 |      NULL | 35000 |
+| ritik    |  30000 |      NULL | 30000 |
+| anvesh   |  12000 |      NULL | 12000 |
+| sujan    |  50000 |      3500 | 46500 |
++----------+--------+-----------+-------+
+14 rows in set (0.00 sec)
+
+mysql> select ename , salary , comission, salary/ifnull(comission,0) as final from employee;
++----------+--------+-----------+---------+
+| ename    | salary | comission | final   |
++----------+--------+-----------+---------+
+| Nikhil   | 120000 |     30000 |  4.0000 |
+| nitin    |  80000 |     15000 |  5.3333 |
+| Vaibhav  |  15000 |      3000 |  5.0000 |
+| Salman   |   5000 |      1000 |  5.0000 |
+| Jayant   |  25000 |      9000 |  2.7778 |
+| Shahrukh |   4000 |       500 |  8.0000 |
+| kiran    |  10000 |      1500 |  6.6667 |
+| sonali   |  40000 |      3500 | 11.4286 |
+| surabhi  |  35000 |      3000 | 11.6667 |
+| yash     |  30000 |      NULL |    NULL |
+| paliwal  |  35000 |      NULL |    NULL |
+| ritik    |  30000 |      NULL |    NULL |
+| anvesh   |  12000 |      NULL |    NULL |
+| sujan    |  50000 |      3500 | 14.2857 |
++----------+--------+-----------+---------+
+14 rows in set, 4 warnings (0.00 sec)
+
+
+mysql> select ename , salary , comission, salary&ifnull(comission,0) as final from employee;
++----------+--------+-----------+-------+
+| ename    | salary | comission | final |
++----------+--------+-----------+-------+
+| Nikhil   | 120000 |     30000 | 21504 |
+| nitin    |  80000 |     15000 | 14464 |
+| Vaibhav  |  15000 |      3000 |  2712 |
+| Salman   |   5000 |      1000 |   904 |
+| Jayant   |  25000 |      9000 |  8488 |
+| Shahrukh |   4000 |       500 |   416 |
+| kiran    |  10000 |      1500 |  1296 |
+| sonali   |  40000 |      3500 |  3072 |
+| surabhi  |  35000 |      3000 |  2232 |
+| yash     |  30000 |      NULL |     0 |
+| paliwal  |  35000 |      NULL |     0 |
+| ritik    |  30000 |      NULL |     0 |
+| anvesh   |  12000 |      NULL |     0 |
+| sujan    |  50000 |      3500 |   256 |
++----------+--------+-----------+-------+
+14 rows in set (0.00 sec)
+
+mysql> select ename , salary , comission, salary^ifnull(comission,0) as final from employee;
++----------+--------+-----------+--------+
+| ename    | salary | comission | final  |
++----------+--------+-----------+--------+
+| Nikhil   | 120000 |     30000 | 106992 |
+| nitin    |  80000 |     15000 |  66072 |
+| Vaibhav  |  15000 |      3000 |  12576 |
+| Salman   |   5000 |      1000 |   4192 |
+| Jayant   |  25000 |      9000 |  17024 |
+| Shahrukh |   4000 |       500 |   3668 |
+| kiran    |  10000 |      1500 |   8908 |
+| sonali   |  40000 |      3500 |  37356 |
+| surabhi  |  35000 |      3000 |  33536 |
+| yash     |  30000 |      NULL |  30000 |
+| paliwal  |  35000 |      NULL |  35000 |
+| ritik    |  30000 |      NULL |  30000 |
+| anvesh   |  12000 |      NULL |  12000 |
+| sujan    |  50000 |      3500 |  52988 |
++----------+--------+-----------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select ename , salary , comission, salary|ifnull(comission,0) as final from employee;
++----------+--------+-----------+--------+
+| ename    | salary | comission | final  |
++----------+--------+-----------+--------+
+| Nikhil   | 120000 |     30000 | 128496 |
+| nitin    |  80000 |     15000 |  80536 |
+| Vaibhav  |  15000 |      3000 |  15288 |
+| Salman   |   5000 |      1000 |   5096 |
+| Jayant   |  25000 |      9000 |  25512 |
+| Shahrukh |   4000 |       500 |   4084 |
+| kiran    |  10000 |      1500 |  10204 |
+| sonali   |  40000 |      3500 |  40428 |
+| surabhi  |  35000 |      3000 |  35768 |
+| yash     |  30000 |      NULL |  30000 |
+| paliwal  |  35000 |      NULL |  35000 |
+| ritik    |  30000 |      NULL |  30000 |
+| anvesh   |  12000 |      NULL |  12000 |
+| sujan    |  50000 |      3500 |  53244 |
++----------+--------+-----------+--------+
+14 rows in set (0.00 sec)

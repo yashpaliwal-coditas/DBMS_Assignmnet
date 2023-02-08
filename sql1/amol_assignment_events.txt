@@ -1,0 +1,86 @@
+Q1 
+mysql> select u.first_name, u.last_name,c.name,c.city from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id;
++------------+-----------+-----------+----------+
+| first_name | last_name | name      | city     |
++------------+-----------+-----------+----------+
+| Dan        | Williams  | Amazon    | Bengluru |
+| Emma       | Allen     | Amazon    | Bengluru |
+| Charlotte  | Chapman   | Amazon    | Bengluru |
+| Sam        | Wilson    | Facebook  | Ontario  |
+| Olivia     | Walker    | Facebook  | Ontario  |
+| Sophia     | Holmes    | Facebook  | Ontario  |
+| Willey     | Harris    | Google    | Bijing   |
+| Isabella   | Baker     | Google    | Bijing   |
+| Barrack    | Robinson  | Microsoft | Shanghai |
+| Chirst     | Stevens   | Linkedin  | Tokyo    |
++------------+-----------+-----------+----------+
+10 rows in set (0.00 sec)
+
+Q2.
+
+mysql> select c.country, count(u.id) from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id group by c.country;
++---------+-------------+
+| country | count(u.id) |
++---------+-------------+
+| India   |           3 |
+| Canada  |           3 |
+| China   |           3 |
+| Japan   |           1 |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+Q3
+
+
+mysql> select u.id, u.first_name, u.last_name from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id where c.country like "%i%" or c.country like "%I%";
++----+------------+-----------+
+| id | first_name | last_name |
++----+------------+-----------+
+|  1 | Dan        | Williams  |
+|  7 | Emma       | Allen     |
+| 10 | Charlotte  | Chapman   |
+|  3 | Willey     | Harris    |
+|  8 | Isabella   | Baker     |
+|  4 | Barrack    | Robinson  |
++----+------------+-----------+
+6 rows in set (0.01 sec)
+
+Q4
+
+mysql> select u.first_name, u.last_name from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id where c.country in("India","Japan");
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Dan        | Williams  |
+| Emma       | Allen     |
+| Charlotte  | Chapman   |
+| Chirst     | Stevens   |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+Q5
+
+mysql> select c.name,count( u.last_name) from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id group by c.name;
++-----------+---------------------+
+| name      | count( u.last_name) |
++-----------+---------------------+
+| Amazon    |                   3 |
+| Facebook  |                   3 |
+| Google    |                   2 |
+| Microsoft |                   1 |
+| Linkedin  |                   1 |
++-----------+---------------------+
+5 rows in set (0.00 sec)
+
+Q6
+
+mysql> select u.first_name, u.last_name,u.job_title,ev.name,c.name,c.city from event_application e join user u on u.id=e.user_id join company c on c.id=e.company_id join event ev on ev.id=e.id;
++------------+-----------+-----------+-------------+-----------+----------+
+| first_name | last_name | job_title | name        | name      | city     |
++------------+-----------+-----------+-------------+-----------+----------+
+| Dan        | Williams  | Director  | Spring Fair | Amazon    | Bengluru |
+| Sam        | Wilson    | Manager   | Autumn Fair | Facebook  | Ontario  |
+| Willey     | Harris    | Manager   | Oracle      | Google    | Bijing   |
+| Barrack    | Robinson  | Director  | BETT        | Microsoft | Shanghai |
++------------+-----------+-----------+-------------+-----------+----------+
+4 rows in set (0.00 sec)

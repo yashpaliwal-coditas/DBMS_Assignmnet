@@ -1,0 +1,18 @@
+Q1 Check Auto_increment contraint after creating table.
+
+mysql> ALTER TABLE mca modify column id int unsigned AUTO_INCREMENT;
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+Q2. Check weather it shows the structure of the table using desc table command
+
+mysql> desc mca;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(25)  | YES  |     | NULL    |                |
+| percentage | int          | YES  |     | NULL    |                |
+| city       | varchar(25)  | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)

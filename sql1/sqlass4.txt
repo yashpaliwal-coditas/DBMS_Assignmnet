@@ -1,0 +1,154 @@
+mysql> create table customers(id int primary key , name varchar(25),age int, address varchar(30),salary int);
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> create table orders(o_id int primary key ,o_date date,c_id int,amount int,foreign key(o_id) references customers(id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customers values(1,"yash",24,"agra",50000),(2,"aniket",22,"pune",60000),(3,"tanmay",27,"pune",35000),(4,"bala",28,"kerala",15000),(5,"sujan",21,"mumbai",18000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders values(1,"2019-5-13",2,5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(2,"2019-7-23",1,5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(3,"2019-9-20",5,8000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(4,"2020-1-15",1,4000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(5,"2020-1-15",4,7658);
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select c.id, c.name, o.o_date,o.amount from orders o join customers c on o.c_id=c.id;
++----+--------+------------+--------+
+| id | name   | o_date     | amount |
++----+--------+------------+--------+
+|  2 | aniket | 2019-05-13 |   5000 |
+|  1 | yash   | 2019-07-23 |   5000 |
+|  5 | sujan  | 2019-09-20 |   8000 |
+|  1 | yash   | 2020-01-15 |   4000 |
+|  4 | bala   | 2020-01-15 |   7658 |
++----+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id, c.name, o.o_date,o.amount from orders o left join customers c on o.c_id=c.id;
++------+--------+------------+--------+
+| id   | name   | o_date     | amount |
++------+--------+------------+--------+
+|    2 | aniket | 2019-05-13 |   5000 |
+|    1 | yash   | 2019-07-23 |   5000 |
+|    5 | sujan  | 2019-09-20 |   8000 |
+|    1 | yash   | 2020-01-15 |   4000 |
+|    4 | bala   | 2020-01-15 |   7658 |
++------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id, c.name, o.o_date,o.amount from orders o right join customers c on o.c_id=c.id;
++----+--------+------------+--------+
+| id | name   | o_date     | amount |
++----+--------+------------+--------+
+|  1 | yash   | 2020-01-15 |   4000 |
+|  1 | yash   | 2019-07-23 |   5000 |
+|  2 | aniket | 2019-05-13 |   5000 |
+|  3 | tanmay | NULL       |   NULL |
+|  4 | bala   | 2020-01-15 |   7658 |
+|  5 | sujan  | 2019-09-20 |   8000 |
++----+--------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select id, name from customers union all select o_date, amount from  orders;
++------------+--------+
+| id         | name   |
++------------+--------+
+| 1          | yash   |
+| 2          | aniket |
+| 3          | tanmay |
+| 4          | bala   |
+| 5          | sujan  |
+| 2019-05-13 | 5000   |
+| 2019-07-23 | 5000   |
+| 2019-09-20 | 8000   |
+| 2020-01-15 | 4000   |
+| 2020-01-15 | 7658   |
++------------+--------+
+10 rows in set (0.00 sec)
+
+
+mysql> select distinct m.name, c.address from customers c inner join customers m on m.address=c.address;
++--------+---------+
+| name   | address |
++--------+---------+
+| yash   | agra    |
+| aniket | pune    |
+| tanmay | pune    |
+| bala   | kerala  |
+| sujan  | mumbai  |
++--------+---------+
+5 rows in set (0.00 sec)
+
+
+mysql> select c.id, c.name, o.o_date,o.amount from orders o cross join customers c;
++----+--------+------------+--------+
+| id | name   | o_date     | amount |
++----+--------+------------+--------+
+|  1 | yash   | 2020-01-15 |   7658 |
+|  1 | yash   | 2020-01-15 |   4000 |
+|  1 | yash   | 2019-09-20 |   8000 |
+|  1 | yash   | 2019-07-23 |   5000 |
+|  1 | yash   | 2019-05-13 |   5000 |
+|  2 | aniket | 2020-01-15 |   7658 |
+|  2 | aniket | 2020-01-15 |   4000 |
+|  2 | aniket | 2019-09-20 |   8000 |
+|  2 | aniket | 2019-07-23 |   5000 |
+|  2 | aniket | 2019-05-13 |   5000 |
+|  3 | tanmay | 2020-01-15 |   7658 |
+|  3 | tanmay | 2020-01-15 |   4000 |
+|  3 | tanmay | 2019-09-20 |   8000 |
+|  3 | tanmay | 2019-07-23 |   5000 |
+|  3 | tanmay | 2019-05-13 |   5000 |
+|  4 | bala   | 2020-01-15 |   7658 |
+|  4 | bala   | 2020-01-15 |   4000 |
+|  4 | bala   | 2019-09-20 |   8000 |
+|  4 | bala   | 2019-07-23 |   5000 |
+|  4 | bala   | 2019-05-13 |   5000 |
+|  5 | sujan  | 2020-01-15 |   7658 |
+|  5 | sujan  | 2020-01-15 |   4000 |
+|  5 | sujan  | 2019-09-20 |   8000 |
+|  5 | sujan  | 2019-07-23 |   5000 |
+|  5 | sujan  | 2019-05-13 |   5000 |
++----+--------+------------+--------+
+25 rows in set (0.00 sec)
+
+
+mysql> select * from customers where id in (select id from customers where salary >20000);
++----+--------+------+---------+--------+
+| id | name   | age  | address | salary |
++----+--------+------+---------+--------+
+|  1 | yash   |   24 | agra    |  50000 |
+|  2 | aniket |   22 | pune    |  60000 |
+|  3 | tanmay |   27 | pune    |  35000 |
++----+--------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> create table cust_bkp as select * from customers;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+
+mysql> update customers set salary=salary+(salary/10) where id in (select id from cust_bkp where age>23);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> delete from customers where id in (select id from cust_bkp where age>26);
+Query OK, 2 rows affected (0.01 sec)
+
+

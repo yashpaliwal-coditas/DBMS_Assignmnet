@@ -1,0 +1,97 @@
+mysql> select p.name, s.quantity from sales s join product p on p.id=s.product_id;
++--------+----------+
+| name   | quantity |
++--------+----------+
+| Wrench |     1745 |
+| Wrench |     3729 |
+| Hammer |      473 |
+| Hammer |     2529 |
+| Drill  |     1962 |
+| Drill  |      809 |
+| Drill  |     3110 |
+| Saw    |      170 |
+| Saw    |     3071 |
+| Pliers |      688 |
+| Pliers |      734 |
+| Pliers |     2738 |
++--------+----------+
+12 rows in set (0.01 sec)
+
+mysql> select sp.name, s.quantity from sales s join salesperson sp on sp.id=s.salesperson_id;
++---------+----------+
+| name    | quantity |
++---------+----------+
+| Baker   |      473 |
+| Baker   |      170 |
+| Baker   |      688 |
+| Adams   |     1745 |
+| Adams   |     2529 |
+| Adams   |     1962 |
+| Adams   |     3071 |
+| Dickens |      809 |
+| Dickens |      734 |
+| Carlyle |     3729 |
+| Carlyle |     3110 |
+| Carlyle |     2738 |
++---------+----------+
+12 rows in set (0.00 sec)
+
+mysql> select c.cust_name, sp.name , o.size_sq_ft from customer c join salesperson sp on sp.id=c.salesperson_id join office o on o.id=sp.office_id;
++---------------------+---------+------------+
+| cust_name           | name    | size_sq_ft |
++---------------------+---------+------------+
+| Main St. Hardware   | Baker   |        120 |
+| ABC Home Stores     | Baker   |        120 |
+| Acme Hardware Store | Baker   |        120 |
+| City Hardware       | Baker   |        120 |
+| Jane?s Stores       | Adams   |        120 |
+| Central Stores      | Adams   |        120 |
+| Western Hardware    | Dickens |         95 |
+| Fred?s Tool Stores  | Carlyle |        100 |
+| XYZ Stores          | Carlyle |        100 |
++---------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select hq_city, count(cust_name) from customer group by hq_city;
++-------------+------------------+
+| hq_city     | count(cust_name) |
++-------------+------------------+
+| New York    |                4 |
+| Chicago     |                1 |
+| Los Angeles |                2 |
+| Atlanta     |                1 |
+| Washington  |                1 |
++-------------+------------------+
+5 rows in set (0.01 sec)
+
+
+mysql> select sp.name , p.name, s.quantity from sales s join salesperson sp on s.salesperson_id=sp.id join product p on p.id=s.product_id;
++---------+--------+----------+
+| name    | name   | quantity |
++---------+--------+----------+
+| Baker   | Hammer |      473 |
+| Baker   | Saw    |      170 |
+| Baker   | Pliers |      688 |
+| Adams   | Wrench |     1745 |
+| Adams   | Hammer |     2529 |
+| Adams   | Drill  |     1962 |
+| Adams   | Saw    |     3071 |
+| Dickens | Drill  |      809 |
+| Dickens | Pliers |      734 |
+| Carlyle | Wrench |     3729 |
+| Carlyle | Drill  |     3110 |
+| Carlyle | Pliers |     2738 |
++---------+--------+----------+
+12 rows in set (0.00 sec)
+
+
+mysql> select sp.name , sum(p.unit_price*s.quantity*sp.commision_percentage/100) as commision from sales s join salesperson sp on sp.id=s.salesperson_id join product p on p.id=s.product_id group by sp.name;
++---------+--------------+
+| name    | commision    |
++---------+--------------+
+| Baker   |  2065.200000 |
+| Adams   | 31829.307000 |
+| Dickens |  3512.991000 |
+| Carlyle | 36475.290000 |
++---------+--------------+
+4 rows in set (0.00 sec)

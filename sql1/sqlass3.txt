@@ -1,0 +1,212 @@
+assignment 3:
+
+
+mysql> create table students(roo_no int, name varchar(20),division varchar(5),branch varchar(20),city varchar(20),marks int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into student values(1,"yash","a","IT","agra",95),(2,"aniket","a",
+"IT","pune",95),(3,"tanmay","b","IT","pune",98),(4,"paliwal","a","management","agra",95);
+mysql> insert into students values(1,"yash","a","IT","agra",95),(2,"aniket","a","IT","pune",95),(3,"tanmay","b","IT","pune",98),(4,"paliwal","a","management","agra",95);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into students values(5,"anvesh","a","IT","noida",95),(6,"nishant","b","humanities","delhi",65),(7,"yuvraj","c","management","rohini",56),(8,"shreya","d","management","kanpur",74);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into students values(9,"yash","a","IT","noida",78),(10,"aditya","b","mechanical","basti",60);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select name, city from students;
++---------+--------+
+| name    | city   |
++---------+--------+
+| yash    | agra   |
+| aniket  | pune   |
+| tanmay  | pune   |
+| paliwal | agra   |
+| anvesh  | noida  |
+| nishant | delhi  |
+| yuvraj  | rohini |
+| shreya  | kanpur |
+| yash    | noida  |
+| aditya  | basti  |
++---------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select distinct name from students;
++---------+
+| name    |
++---------+
+| yash    |
+| aniket  |
+| tanmay  |
+| paliwal |
+| anvesh  |
+| nishant |
+| yuvraj  |
+| shreya  |
+| aditya  |
++---------+
+9 rows in set (0.00 sec)
+
+mysql> select * from students;
++--------+---------+----------+------------+--------+-------+
+| roo_no | name    | division | branch     | city   | marks |
++--------+---------+----------+------------+--------+-------+
+|      1 | yash    | a        | IT         | agra   |    95 |
+|      2 | aniket  | a        | IT         | pune   |    95 |
+|      3 | tanmay  | b        | IT         | pune   |    98 |
+|      4 | paliwal | a        | management | agra   |    95 |
+|      5 | anvesh  | a        | IT         | noida  |    95 |
+|      6 | nishant | b        | humanities | delhi  |    65 |
+|      7 | yuvraj  | c        | management | rohini |    56 |
+|      8 | shreya  | d        | management | kanpur |    74 |
+|      9 | yash    | a        | IT         | noida  |    78 |
+|     10 | aditya  | b        | mechanical | basti  |    60 |
++--------+---------+----------+------------+--------+-------+
+10 rows in set (0.00 sec)
+
+mysql> select * from students where marks>75;
++--------+---------+----------+------------+-------+-------+
+| roo_no | name    | division | branch     | city  | marks |
++--------+---------+----------+------------+-------+-------+
+|      1 | yash    | a        | IT         | agra  |    95 |
+|      2 | aniket  | a        | IT         | pune  |    95 |
+|      3 | tanmay  | b        | IT         | pune  |    98 |
+|      4 | paliwal | a        | management | agra  |    95 |
+|      5 | anvesh  | a        | IT         | noida |    95 |
+|      9 | yash    | a        | IT         | noida |    78 |
++--------+---------+----------+------------+-------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> select * from students where name like "s%";
++--------+--------+----------+------------+--------+-------+
+| roo_no | name   | division | branch     | city   | marks |
++--------+--------+----------+------------+--------+-------+
+|      8 | shreya | d        | management | kanpur |    74 |
++--------+--------+----------+------------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where marks between 50 and 60;
++--------+--------+----------+------------+--------+-------+
+| roo_no | name   | division | branch     | city   | marks |
++--------+--------+----------+------------+--------+-------+
+|      7 | yuvraj | c        | management | rohini |    56 |
+|     10 | aditya | b        | mechanical | basti  |    60 |
++--------+--------+----------+------------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students where branch="computer" and city="pune";
+Empty set (0.00 sec)
+
+mysql> update students set branch="IT" where roo_no=9;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> delete from students where division="b";
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> create table te_students(roll_no int, name varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into te_students values(1,"coditas"),(2,"company"),(3,"viman_nagar");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select roll_no from students union select roll_no from te_students;
++---------+
+| roll_no |
++---------+
+|       1 |
+|       2 |
+|       4 |
+|       5 |
+|       7 |
+|       8 |
+|       9 |
+|       3 |
+|      19 |
++---------+
+9 rows in set (0.00 sec)
+
+mysql> select upper(name) as uppper_name from students;
++-------------+
+| uppper_name |
++-------------+
+| YASH        |
+| ANIKET      |
+| PALIWAL     |
+| ANVESH      |
+| YUVRAJ      |
+| SHREYA      |
+| YASH        |
++-------------+
+7 rows in set (0.01 sec)
+
+mysql> select bin(marks),hex(marks) from students;
++------------+------------+
+| bin(marks) | hex(marks) |
++------------+------------+
+| 1011111    | 5F         |
+| 1011111    | 5F         |
+| 1011111    | 5F         |
+| 1011111    | 5F         |
+| 111000     | 38         |
+| 1001010    | 4A         |
+| 1001110    | 4E         |
++------------+------------+
+7 rows in set (0.00 sec)
+
+
+mysql> create table customers(cust_id int primary key auto_increment,cust_name varchar(20),product varchar(20), quantity int, total_price int)
+    -> ;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customers (cust_name,product,quantity ,total_price) values("yash", "laptop",1,50000),("paliwal", "keyboard",2,500),("tanmay", "headphones",5,20000),("aniket", "watch",1,5000),("piyush", "earphones",3,1500);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table customers add price_per_quantity int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create view cust_view as select cust_id, cust_name from customers;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from cust_view;
++---------+-----------+
+| cust_id | cust_name |
++---------+-----------+
+|       1 | yash      |
+|       2 | paliwal   |
+|       3 | tanmay    |
+|       4 | aniket    |
+|       5 | piyush    |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> alter view cust_view as select cust_id, product, total_price from customers;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop view cust_view;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create index cust_index on customers(cust_name);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customers drop index cust_index;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customers rename to alias;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table customers;
+ERROR 1051 (42S02): Unknown table 'student.customers'
+
+mysql> drop table alias;
+Query OK, 0 rows affected (0.01 sec)
